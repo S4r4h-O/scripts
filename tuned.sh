@@ -1,0 +1,45 @@
+#!/bin/bash
+
+profiles=(
+  accelerator-performance
+  atomic-guest
+  atomic-host
+  aws
+  balanced
+  balanced-battery
+  cpu-partitioning
+  cpu-partitioning-powersave
+  default
+  desktop
+  desktop-powersave
+  enterprise-storage
+  hpc-compute
+  intel-sst
+  laptop-ac-powersave
+  laptop-battery-powersave
+  latency-performance
+  mssql
+  network-latency
+  network-throughput
+  openshift
+  openshift-control-plane
+  openshift-node
+  optimize-serial-console
+  oracle
+  postgresql
+  powersave
+  realtime
+  realtime-virtual-guest
+  realtime-virtual-host
+  sap-hana
+  sap-hana-kvm-guest
+  sap-netweaver
+  server-powersave
+  spectrumscale-ece
+  spindown-disk
+  throughput-performance
+  virtual-guest
+  virtual-host
+)
+
+printf '%s\n' "${profiles[@]}" | fzf | xargs tuned-adm profile
