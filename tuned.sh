@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -me
+
 profiles=(
   accelerator-performance
   atomic-guest
@@ -42,4 +44,12 @@ profiles=(
   virtual-host
 )
 
-printf '%s\n' "${profiles[@]}" | fzf | xargs tuned-adm profile
+profile="$(printf '%s\n' "${profiles[@]}" | fzf)" || exit 1
+
+if ! command -v tuned-adm >/dev/null; then
+  echo "Tuned is not installed or not in PATH."
+elif ! tuned-adm profile "$profile"; then
+  echo "$(tput setaf 1)Failed to switch to $profile$(tput sgr0)"
+  return 1
+fi
+echo "Switched to $(tput setaf 2)$profile$(tput sgr0) successfully."
