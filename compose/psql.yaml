@@ -1,0 +1,21 @@
+services:
+  admin:
+    image: dpage/pgadmin4:latest
+    environment:
+      PGADMIN_DEFAULT_EMAIL: my@email.com
+      PGADMIN_DEFAULT_PASSWORD: supersecret
+    ports:
+      - "8090:80"
+    networks:
+      - pg-network
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: psql_user
+      POSTGRES_PASSWORD: mypasswd
+    ports:
+      - "5432:5432"
+    networks:
+      - pg-network
+networks:
+  pg-network:
